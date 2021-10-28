@@ -1,7 +1,7 @@
 #include "LinearApproximation.h"
 
-
-LinearApproximation::LinearApproximation(const int& size) {
+//Конструктор з 1 вектором для x та y
+/*LinearApproximation::LinearApproximation(const int& size) {
     xAr.resize(size);
     yAr.resize(size);
     /***
@@ -11,7 +11,7 @@ LinearApproximation::LinearApproximation(const int& size) {
     * якщо потрібно то закоментуй код нижче повністю та розкоментуй два рядки вище
     * і можеш підставити туди будь  які значення
     * код нижче для заповнення масивів з клавіатури
-    */
+    *
     cout << "Fill array with X coordinates:\n";
     for (int i = 0; i < size; i++) {
         cin >> xAr[i];
@@ -20,15 +20,28 @@ LinearApproximation::LinearApproximation(const int& size) {
     for (int i = 0; i < size; i++) {
         cin >> yAr[i];
     }
+}*/
+
+//Конструктор з 4 вектором для x та y (чисельник та знаменник)
+LinearApproximation::LinearApproximation(vector<int> xNumerator, vector<int> xDenominator, vector<int> yNumerator, vector<int> yDenominator) {
+    int size = xNumerator.size();
+    xAr.resize(size);
+    yAr.resize(size);
+
+    for (int i = 0; i < size; i++) {
+        xAr[i] = static_cast<double>((double)xNumerator.at(i) / xDenominator.at(i));
+        yAr[i] = static_cast<double>((double)yNumerator.at(i) / yDenominator.at(i));
+    }
 }
+
 void LinearApproximation::getArrayofPoints(const int& size) {
-    cout << "X array of points: \n";
+    cout << "\nX array of points: \n";
     for (int i = 0; i < size; i++) {
         cout << xAr.at(i) << " ";
     }
     cout << "\n\nY array of points: \n";
     for (int i = 0; i < size; i++) {
-        cout << yAr.at(i) << " ";
+        cout <<fixed<<setprecision(3)<<yAr.at(i) << " ";
     }
     cout << "\n\n";
 }
@@ -57,6 +70,7 @@ void LinearApproximation::findOutCoeffitients(int& size) {
     result = "y= " + to_string(getK()) + "x " + sign + " " + to_string(fabs(getB()));
     cout << result << "\n";
 }
+
 void LinearApproximation::computeSumMulXY(const int& size) {
     double sum = 0;
     for (int i = 0; i < size; i++) {
@@ -91,4 +105,35 @@ void LinearApproximation::computePowSumX(const int& size) {
         sum += xAr.at(i);
     }
     setPowSumX(pow(sum, 2));
+}
+void inputArrays(vector<int>& xNumerator, vector<int>& xDenominator, vector<int>& yNumerator, vector<int>& yDenominator) {
+    int size = xNumerator.size();
+
+    cout << "Enter x numerator: \n";
+    for (int i = 0; i < size; i++) {
+        cin >> xNumerator.at(i);
+    }
+
+    cout << "\nEnter x denominator: \n";
+    for (int i = 0; i < size; i++) {
+       f1: cin >> xDenominator.at(i);
+        if (xDenominator.at(i) == 0) {
+            cout << "\nDivision by 0!\n";
+            goto f1;
+        }
+    }
+
+    cout << "\nEnter y numerator: \n";
+    for (int i = 0; i < size; i++) {
+        cin >> yNumerator.at(i);
+    }
+    
+    cout << "\nEnter y denominator: \n";
+    for (int i = 0; i < size; i++) {
+    f2: cin >> yDenominator.at(i);
+        if (yDenominator.at(i) == 0) {
+            cout << "\nDivision by 0!\n";
+            goto f2;
+        }
+    }
 }

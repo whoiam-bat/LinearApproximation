@@ -22,8 +22,9 @@ private:
     double powSumX; // square of sum x
 
 public:
-    LinearApproximation(const int& size);
+    //LinearApproximation(const int& size);Конструктор з 1 вектором для x та y
 
+    LinearApproximation(vector<int> xNumerator, vector<int> xDenominator, vector<int> yNumerator, vector<int> yDenominator);
     void setK(const double& k) {
         this->k = k;
     }
@@ -79,3 +80,5 @@ public:
     void getIntermediateSums(const int& size);
 
 };
+
+void inputArrays(vector<int>& xNumerator, vector<int>& xDenominator, vector<int>& yNumerator, vector<int>& yDenominator);
